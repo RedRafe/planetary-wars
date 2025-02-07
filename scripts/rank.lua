@@ -1,0 +1,3 @@
+local Rank = {}
+
+return Rank

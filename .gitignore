@@ -1,4 +1,7 @@
 # Personal
 .vscode/
+.VSCodeCounter
 .DS_Store
 !template/.vscode
+
+TODO.md
