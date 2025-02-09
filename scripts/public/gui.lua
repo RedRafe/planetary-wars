@@ -4,7 +4,7 @@
 -- ========================================================================= --
 
 local mod_gui = require '__core__.lualib.mod-gui'
-local Storage = require 'utils.storage'
+local Storage = require 'scripts.core.storage'
 local getinfo = debug.getinfo
 
 -- == GUI LIB =================================================================

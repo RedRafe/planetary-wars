@@ -6,9 +6,9 @@
 
 local Queue = require 'utils.containers.queue'
 local PriorityQueue = require 'utils.containers.priority-queue'
-local Event = require 'utils.event'
-local Token = require 'utils.token'
-local Storage = require 'utils.storage'
+local Event = require 'scripts.core.event'
+local Token = require 'scripts.core.token'
+local Storage = require 'scripts.core.storage'
 
 local floor = math.floor
 local log10 = math.log10
