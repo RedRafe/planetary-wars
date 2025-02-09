@@ -14,7 +14,6 @@ local Public = {}
 
 local xpcall = xpcall
 local log = log
--- luacheck: ignore 143
 local remove_element = table.remove_element
 local debug_traceback = debug.traceback
 

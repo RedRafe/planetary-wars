@@ -1,4 +1,5 @@
 -- luacheck: ignore data
+-- luacheck: ignore script
 
 _G.bb = {}
 

@@ -1,5 +1,3 @@
--- luacheck: field remove_any
-
 ---@param p_type string
 ---@param p_name string
 local function hide_prototype(p_type, p_name)

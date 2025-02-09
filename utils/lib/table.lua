@@ -285,12 +285,6 @@ end
 --- Takes a table and returns the number of entries in the table. (Slower than #table, faster than iterating via pairs)
 table.size = table_size
 
---- Creates a deepcopy of a table. Metatables and LuaObjects inside the table are shallow copies.
---- Shallow copies meaning it copies the reference to the object instead of the object itself.
----@param object table, the object to copy
----@return table, the copied object
-table.deep_copy = table.deepcopy
-
 --- Merges multiple tables. Tables later in the list will overwrite entries from tables earlier in the list.
 --- Ex. merge({{1, 2, 3}, {[2] = 0}, {[3] = 0}}) will return {1, 0, 0}
 ---@param tables table, takes a table of tables to merge

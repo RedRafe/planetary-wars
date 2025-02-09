@@ -1,6 +1,6 @@
 local Enemy = {}
 
-local replace = string.replace -- luacheck: ignore 143
+local replace = string.replace
 local math_round = math.round
 local math_random = math.random
 local sample = 'biter'
