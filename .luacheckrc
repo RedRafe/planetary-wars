@@ -29,13 +29,14 @@ local mod_name = 'bb'
 local LIB = mod_name .. '_lib'
 local LIB_DATA = LIB .. '_data'
 local LIB_CONTROL = LIB .. '_control'
+local RULES = 'lua52c+factorio+' .. LIB
 local DATA_RULES = 'lua52c+factorio+factorio_data+' .. LIB .. '+' .. LIB_DATA
 local CONTROL_RULES = 'lua52c+factorio+factorio_control+' .. LIB .. '+' .. LIB_CONTROL
 
 -- == LUACHECK SETTINGS =======================================================
 
 -- String or set of standard globals
-std = DATA_RULES
+std = RULES
 
 -- Array of strings or field definition map
 globals = { mod_name }
@@ -64,6 +65,8 @@ exclude_files = {
 }
 
 -- == RULESETS ================================================================
+
+files['**/utils/'].std = RULES
 
 files['**/data.lua'].std = DATA_RULES
 files['**/data-updates.lua'].std = DATA_RULES
