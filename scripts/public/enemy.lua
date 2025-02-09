@@ -1,9 +1,8 @@
-bb.on_trigger('bb_enemy_entity', function(event)
-    local entity = event.source_entity
-    entity.force = (entity.position.y > 0) and 'north' or 'south'
-end)
+local Enemy = {}
 
-local replace = string.replace
+local replace = string.replace -- luacheck: ignore 143
+local math_round = math.round
+local math_random = math.random
 local sample = 'biter'
 
 --- Build the interval dictionary
@@ -80,3 +79,42 @@ local function build_weighted_array(transformed_units)
 end
 
 local tiers = build_weighted_array(create_interval_functions(prototypes.entity[sample..'-spawner'].result_units))
+
+--- Re-assigns unit-spawners and worms to the respective force when auto-placed
+Enemy.on_enemy_entity_created = function(event)
+    local entity = event.source_entity
+    entity.force = (entity.position.y > 0) and 'north' or 'south'
+end
+
+Enemy.on_entity_died = function(event)
+    local entity = event.entity
+    if not (entity and entity.valid) then
+        return
+    end
+
+    if entity.type ~= 'unit-spawner' then
+        return
+    end
+
+    local unit = replace(entity.name, '-spawner')
+    local evo = math_round(entity.force.get_evolution_factor() * 1000)
+    local spawner_position = entity.position
+    local force = entity.force
+    local find_non_colliding_position = entity.surface.find_non_colliding_position
+    local create_entity = entity.surface.create_entity
+    local candidates = tiers[evo]
+
+    for i = 1, math_random(8, 20) do
+        local name = candidates[math_random(#candidates)]..'-'..unit
+        local position = find_non_colliding_position(name, spawner_position, 8, 1)
+        if position then
+            create_entity{
+                name = name,
+                force = force,
+                position = position,
+            }
+        end
+    end
+end
+
+return Enemy

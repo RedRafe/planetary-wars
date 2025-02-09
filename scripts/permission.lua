@@ -1,3 +1,0 @@
-local Permission = {}
-
-return Permission

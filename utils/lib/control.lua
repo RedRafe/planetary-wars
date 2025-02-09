@@ -15,6 +15,8 @@ Public.on_destroyed = Event.on_destroyed
 Public.on_built_tile = Event.on_built_tile
 Public.on_mined_tile = Event.on_mined_tile
 Public.on_trigger = Event.on_trigger
+Public.raise_event = Event.raise_event
+Public.register_on_object_destroyed = Event.register_on_object_destroyed
 
 -- Storage
 local Storage = require 'utils.storage'

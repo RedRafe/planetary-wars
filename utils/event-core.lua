@@ -212,6 +212,9 @@ Public.on_configuration_changed = function(handler)
     return register_handler(events.on_configuration_changed, handler, event_handlers, script.on_configuration_changed)
 end
 
+Public.raise_event = script.raise_event
+Public.register_on_object_destroyed = script.register_on_object_destroyed
+
 Public.get_handlers = function()
     return {
         token_handlers = token_handlers,

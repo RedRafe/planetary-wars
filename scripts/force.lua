@@ -1,3 +1,0 @@
-local Force = {}
-
-return Force

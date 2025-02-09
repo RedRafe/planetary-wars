@@ -620,6 +620,7 @@ end
 
 --- Spawn weights
 --- Each entry has to start & finish with 0 weight (except at start/end of the range)
+--- Extend enemy evolution past 100% up to 1000%, then re-map whole evolution range to [0,1] of vanilla
 local weights = {
     { 'small',      {{0.00, 0.3}, {0.60, 0.0}}},              --    0% Small Biter / Small Spitter
     { 'medium',     {{0.20, 0.0}, {0.60, 0.3}, {0.90, 0.0}}}, --   20% Medium Biter / Medium Spitter
@@ -646,7 +647,7 @@ local weights = {
     { 'leviathan',  {{9.90, 1.0}, {10.00, 0.6}}},             -- 1000% Leviathan Biter / Leviathan Spitter
 }
 
-for _, name in pairs{ 'biter', 'spitter' } do 
+for _, name in pairs{ 'biter', 'spitter' } do
     local result_units = table.deepcopy(weights)
 
     for _, v in pairs(result_units) do

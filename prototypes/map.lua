@@ -28,14 +28,26 @@ mgs.property_expression_names = { ['segmentation_multiplier'] = 0.1 }
 mgs.starting_area = 2.5
 mgs.autoplace_controls = {
     -- Resources
-    ['coal']        = { frequency = 6.5,  size = 0.34,  richness = 0.24 },
-    ['copper-ore']  = { frequency = 8.05, size = 0.352, richness = 0.35 },
-    ['crude-oil']   = { frequency = 8,    size = 1.4,   richness = 0.45 },
-    ['iron-ore']    = { frequency = 8.5,  size = 0.8,   richness = 0.23 },
-    ['stone']       = { frequency = 6,    size = 0.385, richness = 0.25 },
-    ['uranium-ore'] = { frequency = 2.2,  size = 1,     richness = 1    },
+    ['coal']        = { frequency = 6.5,  size = 0.34,  richness = 0.24  },
+    ['copper-ore']  = { frequency = 8.05, size = 0.352, richness = 0.35  },
+    ['crude-oil']   = { frequency = 8,    size = 1.4,   richness = 0.45  },
+    ['iron-ore']    = { frequency = 8.5,  size = 0.8,   richness = 0.23  },
+    ['stone']       = { frequency = 6,    size = 0.385, richness = 0.25  },
+    ['uranium-ore'] = { frequency = 2.2,  size = 1,     richness = 1     },
     -- Other
     ['enemy-base']  = { frequency = 1,    size = 1,     richness = 1     },
     ['trees']       = { frequency = 0.65, size = 0.04,  richness = 0.002 },
     ['water']       = { frequency = 10,   size = 0.3,   richness = 0.1   },
+}
+
+--- Brightness
+data.raw.planet.nauvis.surface_render_parameters = data.raw.planet.nauvis.surface_render_parameters or {}
+data.raw.planet.nauvis.surface_render_parameters.day_night_cycle_color_lookup = {
+    { 0.00, '__core__/graphics/color_luts/identity-lut.png' },
+    { 0.15, '__core__/graphics/color_luts/identity-lut.png' },
+    { 0.20, '__core__/graphics/color_luts/identity-lut.png' },
+    { 0.45, '__core__/graphics/color_luts/lut-sunset.png'   },
+    { 0.55, '__core__/graphics/color_luts/lut-sunset.png'   },
+    { 0.80, '__core__/graphics/color_luts/identity-lut.png' },
+    { 0.85, '__core__/graphics/color_luts/identity-lut.png' },
 }

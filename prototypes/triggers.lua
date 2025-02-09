@@ -12,9 +12,9 @@ local function effect(event_id)
 end
 
 --- Enemies
-data.raw['unit-spawner']['biter-spawner'].created_effect = effect('bb_enemy_entity')
-data.raw['unit-spawner']['spitter-spawner'].created_effect = effect('bb_enemy_entity')
+data.raw['unit-spawner']['biter-spawner'].created_effect = effect('on_enemy_entity_created')
+data.raw['unit-spawner']['spitter-spawner'].created_effect = effect('on_enemy_entity_created')
 
 for _, name in pairs{ 'small', 'medium', 'big', 'behemoth' } do
-    data.raw.turret[name..'-worm-turret'].created_effect = effect('bb_enemy_entity')
+    data.raw.turret[name..'-worm-turret'].created_effect = effect('on_enemy_entity_created')
 end

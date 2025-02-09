@@ -1,5 +1,6 @@
 require '__planetary-wars__.utils.lib.lib'
 
+require 'prototypes.events'
 require 'prototypes.friendly-colors'
 require 'prototypes.map'
 require 'prototypes.noise'

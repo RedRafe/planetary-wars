@@ -21,6 +21,9 @@ Event.on_configuration_changed = function(handler)
     EventCore.on_configuration_changed(handler)
 end
 
+Event.raise_event = EventCore.raise_event
+Event.register_on_object_destroyed = EventCore.register_on_object_destroyed
+
 Event.add = function(event_name, handler, options)
     EventCore.add(event_name, handler, options)
 end
