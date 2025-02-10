@@ -127,7 +127,7 @@ stds[LIB] = {
             },
         },
         math = {
-            other_fields = true,
+            other_fields = false,
             fields = {
                 'sqrt2',
                 'inv_sqrt2',
@@ -152,7 +152,21 @@ stds[LIB] = {
 
 stds[LIB_DATA] = {}
 
-stds[LIB_CONTROL] = {}
+stds[LIB_CONTROL] = {
+    read_globals = {
+        defines = {
+            other_fields = false,
+            events = {
+                'on_map_reset',
+                'on_match_started',
+                'on_match_finished',
+                'on_match_picking_phase',
+                'on_match_preparation_phase',
+                'on_test',
+            }
+        }
+    }
+}
 
 -- == FACTORIO ================================================================
 
@@ -727,14 +741,9 @@ stds.factorio = {
                         'on_gui_value_changed',
                         'on_land_mine_armed',
                         'on_lua_shortcut',
-                        'on_map_reset',
                         'on_marked_for_deconstruction',
                         'on_marked_for_upgrade',
                         'on_market_item_purchased',
-                        'on_match_finished',
-                        'on_match_picking_phase',
-                        'on_match_preparation_phase',
-                        'on_match_started',
                         'on_mod_item_opened',
                         'on_object_destroyed',
                         'on_permission_group_added',
@@ -858,7 +867,6 @@ stds.factorio = {
                         'on_surface_imported',
                         'on_surface_renamed',
                         'on_technology_effects_reset',
-                        'on_test',
                         'on_tick',
                         'on_train_changed_state',
                         'on_train_created',

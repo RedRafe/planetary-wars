@@ -161,13 +161,13 @@ Gui.on_value_changed = handler_factory(defines.events.on_gui_value_changed)
 
 Gui.styles = {
     top_button = {
-        name = 'frame_button',
+        --name = 'frame_button',
         font_color = { 165, 165, 165 },
         font = 'heading-2',
         minimal_height = 40,
         maximal_height = 40,
         minimal_width = 40,
-        padding = -2,
+        padding = 0,
     },
     pusher = {
         top_margin = 0,
@@ -250,7 +250,13 @@ Gui.add_closable_frame = function(player, params)
         label = title_flow.add { type = 'label', caption = params.caption, style = 'frame_title' }
         label.drag_target = frame
 
-        Gui.add_dragger(title_flow, frame)
+        local dragger = title_flow.add { type = 'empty-widget', style = 'draggable_space_header' }
+        dragger.drag_target = frame
+        Gui.set_style(dragger,  {
+            height = 24,
+            vertically_stretchable = false,
+            horizontally_stretchable = true,
+        })
 
         local close_button = title_flow.add {
             type = 'sprite-button',
@@ -296,6 +302,12 @@ Gui.add_top_element = function(player, child)
     if element and element.valid then
         return element
     end
+
+    if (child.type == 'button' or child.type == 'sprite-button') and child.style == nil then
+        child.style = 'frame_button'
+        return Gui.set_style(flow.add(child), Gui.styles.top_button)
+    end
+
     return flow.add(child)
 end
 
@@ -324,5 +336,15 @@ Gui.add_left_element = function(player, child)
 end
 
 -- ============================================================================
+
+Gui.on_player_created = function(event)
+    local player = event.player_index and game.get_player(event.player_index)
+    if not (player and player.valid) then
+        return
+    end
+
+    local mod_gui_top_frame = Gui.get_top_flow(player).parent
+    Gui.set_style(mod_gui_top_frame, { padding = 2 })
+end
 
 return Gui

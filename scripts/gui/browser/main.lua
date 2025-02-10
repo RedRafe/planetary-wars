@@ -1,0 +1,1 @@
+return require 'scripts.gui.browser.core'

@@ -15,6 +15,10 @@ require 'scripts.config'
 require 'scripts.events'
 require 'scripts.shared'
 
---- GUIs
-
 --- Modules
+
+--- GUIs
+require 'scripts.gui.settings.main'
+require 'scripts.gui.admin.main'
+require 'scripts.gui.player.main'
+require 'scripts.gui.browser.main'
