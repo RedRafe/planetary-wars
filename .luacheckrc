@@ -100,6 +100,7 @@ stds[LIB] = {
                 'msv',
                 'find_base',
                 'trim',
+                'capital_letter',
             },
         },
         table = {
@@ -156,13 +157,18 @@ stds[LIB_CONTROL] = {
     read_globals = {
         defines = {
             other_fields = false,
-            events = {
-                'on_map_reset',
-                'on_match_started',
-                'on_match_finished',
-                'on_match_picking_phase',
-                'on_match_preparation_phase',
-                'on_test',
+            fields = {
+                events = {
+                    other_fields = false,
+                    fields = {
+                        'on_map_reset',
+                        'on_match_started',
+                        'on_match_finished',
+                        'on_match_picking_phase',
+                        'on_match_preparation_phase',
+                        'on_test',
+                    }
+                }
             }
         }
     }
@@ -675,8 +681,8 @@ stds.factorio = {
                     fields = {
                         'crash-site-skip-cutscene',
                         'give-artillery-targeting-remote',
-                        'give-blueprint',
                         'give-blueprint-book',
+                        'give-blueprint',
                         'give-copper-wire',
                         'give-deconstruction-planner',
                         'give-discharge-defense-remote',
@@ -693,7 +699,9 @@ stds.factorio = {
                         'on_built_entity',
                         'on_cancelled_deconstruction',
                         'on_cancelled_upgrade',
+                        'on_cargo_pod_delivered_cargo',
                         'on_cargo_pod_finished_ascending',
+                        'on_cargo_pod_finished_descending',
                         'on_character_corpse_expired',
                         'on_chart_tag_added',
                         'on_chart_tag_modified',
@@ -745,6 +753,7 @@ stds.factorio = {
                         'on_marked_for_upgrade',
                         'on_market_item_purchased',
                         'on_mod_item_opened',
+                        'on_multiplayer_init',
                         'on_object_destroyed',
                         'on_permission_group_added',
                         'on_permission_group_deleted',
@@ -794,8 +803,8 @@ stds.factorio = {
                         'on_player_pipette',
                         'on_player_placed_equipment',
                         'on_player_promoted',
-                        'on_player_removed',
                         'on_player_removed_equipment',
+                        'on_player_removed',
                         'on_player_repaired_entity',
                         'on_player_respawned',
                         'on_player_reverse_selected_area',
@@ -839,9 +848,9 @@ stds.factorio = {
                         'on_robot_built_entity',
                         'on_robot_built_tile',
                         'on_robot_exploded_cliff',
-                        'on_robot_mined',
                         'on_robot_mined_entity',
                         'on_robot_mined_tile',
+                        'on_robot_mined',
                         'on_robot_pre_mined',
                         'on_rocket_launch_ordered',
                         'on_rocket_launched',
@@ -852,6 +861,7 @@ stds.factorio = {
                         'on_sector_scanned',
                         'on_segment_entity_created',
                         'on_selected_entity_changed',
+                        'on_singleplayer_init',
                         'on_space_platform_built_entity',
                         'on_space_platform_built_tile',
                         'on_space_platform_changed_state',
@@ -1006,6 +1016,7 @@ stds.factorio = {
                         'copy_opened_item',
                         'craft',
                         'create_space_platform',
+                        'cursor_direction',
                         'cursor_split',
                         'cursor_transfer',
                         'custom_input',
@@ -1236,6 +1247,7 @@ stds.factorio = {
                         'assembling_machine_input',
                         'assembling_machine_modules',
                         'assembling_machine_output',
+                        'assembling_machine_trash',
                         'beacon_modules',
                         'burnt_result',
                         'car_ammo',
@@ -1261,6 +1273,7 @@ stds.factorio = {
                         'furnace_modules',
                         'furnace_result',
                         'furnace_source',
+                        'furnace_trash',
                         'god_main',
                         'hub_main',
                         'hub_trash',

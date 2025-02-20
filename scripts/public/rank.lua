@@ -1,3 +1,0 @@
-local Rank = {}
-
-return Rank

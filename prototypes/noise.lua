@@ -2,35 +2,16 @@ local function mirror_noise(expression)
     return expression:gsub('y = y', 'y = abs(y)-50')
 end
 
-local starting_radius = 39
 local NE = data.raw['noise-expression']
 local NF = data.raw['noise-function']
 
-data:extend({
-    {
-        type = 'noise-expression',
-        name = 'moat',
-        parameters = { 'x', 'y' },
-        expression = string.format('(abs(y) < %d) + ((y*y) + (x*x) < 4*(%d^2)) - 2*((y*y + x*x) < (0.5 * %d^2))', starting_radius, starting_radius, starting_radius)
-    },
-    {
-        type = 'noise-function',
-        name = 'is_roughly_biter_area',
-        parameters = { 'x', 'y' },
-        expression = 'abs(y) >= 512 + abs(x) * 0.45'
-    }
-})
-
 --- Water
 NF['water_base'].parameters = {'max_elevation', 'influence'}
-NF['water_base'].expression = 'if(moat, 100, if(max_elevation >= elevation, influence * min(max_elevation - elevation, 1), -inf))'
 
 --- Enemies
 NF['enemy_autoplace_base'].expression = mirror_noise(NF['enemy_autoplace_base'].expression)
 NE['enemy_base_probability'].expression = mirror_noise(NE['enemy_base_probability'].expression)
 NE['enemy_base_probability'].local_functions.blob.expression = mirror_noise(NE['enemy_base_probability'].local_functions.blob.expression)
-NE['enemy_base_probability'].expression = 'is_roughly_biter_area{ x = x, y = y}'
---NF['enemy_autoplace_base'].expression = 'is_roughly_biter_area{ x = x, y = y}'
 
 --- Resources
 NF['resource_autoplace_all_patches'].local_expressions.blobs0 = mirror_noise(NF['resource_autoplace_all_patches'].local_expressions.blobs0)

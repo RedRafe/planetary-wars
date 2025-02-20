@@ -1,15 +1,19 @@
 local Permission = {}
 
-Permission.groups = {
-    default = 'Default',
-    player = 'Player',
-    spectator = 'Player',
-    jail = 'Jail'
+local groups = {
+    default = 'default',
+    north = 'default',
+    south = 'default',
+    player = 'player',
+    spectator = 'player',
+    jail = 'jail',
+    admin = 'admin',
 }
+Permission.groups = groups
 
 ---@param group_name string, name of the group. If not existing, it will be created a new one
 ---@param allowed boolean
----@param action_list InputAction[], defaults to all input actions
+---@param action_list? InputAction[], defaults to all input actions
 Permission.apply_permissions = function(group_name, allowed, action_list)
     local group = game.permissions.get_group(group_name)
 
@@ -22,14 +26,29 @@ Permission.apply_permissions = function(group_name, allowed, action_list)
     end
 end
 
+---@param player_index number
+---@param group_name? string, name of the group. If not provided, player group will be used
+Permission.set_player_group = function(player_index, group_name)
+    local player = player_index and game.get_player(player_index)
+    if not (player and player.valid) then
+        return
+    end
+
+    player.permission_group = game.permissions.get_group(group_name or groups.player)
+end
+
 Permission.on_init = function()
-    Permission.apply_permissions('Default', false, {
+    game.permissions.get_group('Default').name = 'admin'
+
+    Permission.apply_permissions('default', true)
+    Permission.apply_permissions('default', false, {
+        defines.input_action.delete_permission_group,
         defines.input_action.import_blueprint_string,
         defines.input_action.open_blueprint_library_gui,
     })
 
-    Permission.apply_permissions('Player', false)
-    Permission.apply_permissions('Player', true, {
+    Permission.apply_permissions('player', false)
+    Permission.apply_permissions('player', true, {
         defines.input_action.admin_action,
         defines.input_action.change_active_item_group_for_filters,
         defines.input_action.change_active_quick_bar,
@@ -59,11 +78,39 @@ Permission.on_init = function()
         defines.input_action.write_to_console,
     })
 
-    Permission.apply_permissions('Jail', false)
-    Permission.apply_permissions('Jail', true, {
+    Permission.apply_permissions('jail', false)
+    Permission.apply_permissions('jail', true, {
         defines.input_action.edit_permission_group,
         defines.input_action.write_to_console,
     })
+end
+
+Permission.on_player_changed_force = function(event)
+    local player = event.player_index and game.get_player(event.player_index)
+    if not (player and player.valid) then
+        return
+    end
+
+    local old = player.permission_group.name
+    if old ~= Permission.groups.default and old ~= Permission.groups.player then
+        return
+    end
+
+    Permission.set_player_group(player.index, player.force.name)
+end
+
+Permission.on_player_created = function(event)
+    if not game.is_multiplayer() then
+        return
+    end
+
+    Permission.set_player_group(event.player_index, groups.player)
+end
+
+Permission.on_singleplayer_init = function()
+    for _, player in pairs(game.connected_players) do
+        Permission.set_player_group(player.index, groups.admin)
+    end
 end
 
 return Permission

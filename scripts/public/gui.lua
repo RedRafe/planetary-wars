@@ -4,7 +4,6 @@
 -- ========================================================================= --
 
 local mod_gui = require '__core__.lualib.mod-gui'
-local Storage = require 'scripts.core.storage'
 local getinfo = debug.getinfo
 
 -- == GUI LIB =================================================================
@@ -16,7 +15,7 @@ local Gui = {
     tag = '__@' .. script.mod_name,
 }
 
-Storage.subscribe(data, function(tbl) data = tbl end)
+bb.subscribe(data, function(tbl) data = tbl end)
 
 -- Get a unique name identifier to be used as LuaGuiElement::name or tag
 Gui.uid_name = function(name)

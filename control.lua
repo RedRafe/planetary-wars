@@ -6,9 +6,7 @@ require 'scripts.public.enemy'
 require 'scripts.public.force'
 require 'scripts.public.game'
 require 'scripts.public.permission'
-require 'scripts.public.rank'
 require 'scripts.public.teleport'
-require 'scripts.public.terrain'
 
 --- Main
 require 'scripts.config'
@@ -16,6 +14,13 @@ require 'scripts.events'
 require 'scripts.shared'
 
 --- Modules
+require 'scripts.modules.auto_tag'
+require 'scripts.modules.commands'
+require 'scripts.modules.corpse_tag'
+require 'scripts.modules.floaty_chat'
+require 'scripts.modules.freeplay'
+require 'scripts.modules.restart'
+require 'scripts.modules.terrain'
 
 --- GUIs
 require 'scripts.gui.settings.main'

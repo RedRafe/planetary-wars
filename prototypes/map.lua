@@ -39,6 +39,8 @@ mgs.autoplace_controls = {
     ['trees']       = { frequency = 0.65, size = 0.04,  richness = 0.002 },
     ['water']       = { frequency = 10,   size = 0.3,   richness = 0.1   },
 }
+mgs.autoplace_settings = mgs.autoplace_settings or { tile = { settings = {} }}
+mgs.autoplace_settings.tile.settings['refined-concrete'] = {}
 
 --- Brightness
 data.raw.planet.nauvis.surface_render_parameters = data.raw.planet.nauvis.surface_render_parameters or {}

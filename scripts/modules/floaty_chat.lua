@@ -60,9 +60,8 @@ local function on_console_chat(event)
 
     floaty_chat[index] = rendering.draw_text({
         text = safe_message,
-        surface = player.surface,
-        target = player.character,
-        target_offset = { 0, -4 },
+        surface = player.physical_surface,
+        target = { entity = player.character, offset = { 0, -3.2 }},
         color = color,
         font = 'compi',
         scale = 1.75,

@@ -6,12 +6,15 @@ local map_tags = {}
 bb.subscribe(map_tags, function(tbl) map_tags = tbl end)
 
 local armors = {
-    'mech-armor',
     'power-armor-mk2',
     'power-armor',
     'modular-armor',
     'heavy-armor',
 }
+
+if script.active_mods['space-age'] then
+    table.insert(armors, 'mech-armor', 1)
+end
 
 local function get_armor_icon(inventory)
     local get_item_count = inventory.get_item_count
@@ -59,7 +62,7 @@ bb.add(defines.events.on_player_died, function(event)
         return
     end
 
-    map_tags[entity.unit_number] = entity.force.add_chart_tag(entity.surface, {
+    map_tags[bb.register_on_object_destroyed(entity)] = player.force.add_chart_tag(entity.surface, {
         position = entity.position,
         icon = { type = 'item', name = get_armor_icon(inv) },
         text = format('%s\'s corpse', player.name),
@@ -68,7 +71,7 @@ end)
 
 --- Remove chart tags when retrieving the body
 bb.add(defines.events.on_object_destroyed, function(event)
-    local tag = event.useful_id and map_tags[event.useful_id]
+    local tag = event.registration_number and map_tags[event.registration_number]
 
     if not tag then
         return
@@ -78,7 +81,7 @@ bb.add(defines.events.on_object_destroyed, function(event)
         tag.destroy()
     end
 
-    map_tags[event.useful_id] = nil
+    map_tags[event.registration_number] = nil
 end)
 
 Public.clear_all_tags = function()

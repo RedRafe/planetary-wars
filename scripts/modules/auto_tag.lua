@@ -1,18 +1,28 @@
-local Tag = require 'scripts.public.tag'
-local Game = require 'scripts.public.game'
+local Buckets = require 'utils.containers.buckets'
+local Tag = require 'scripts.public.tags'
 
 local math_abs = math.abs
-local for_players      = Game.for_players
+local b_add    = Buckets.add
+local b_remove = Buckets.remove
+local b_bucket = Buckets.get_bucket
 local add_player_tag   = Tag.add_player_tag
 local get_player_tag   = Tag.get_player_tag
 local clear_player_tag = Tag.clear_player_tag
 
+local NTH_TICK = 36
 local OUTPOST_DISTANCE = 600
 local EAST = 'East'
 local WEST = 'West'
 
-local function update_outpost_tag(player)
-    local player_index = player.index
+local online_players = Buckets.new(math.ceil(60 * 60 / NTH_TICK))
+bb.subscribe(online_players, function(tbl) online_players = tbl end)
+
+---@param player_index number
+---@param player? LuaPlayer
+local function update_player_tag(player_index, player)
+    if not player then
+        player = game.get_player(player_index)
+    end
     local position = player.physical_position.x
 
     if math_abs(position) > OUTPOST_DISTANCE then
@@ -25,7 +35,20 @@ local function update_outpost_tag(player)
     end
 end
 
---- Once every ~minute
-bb.add(3613, function()
-    for_players(update_outpost_tag)
+bb.add(defines.events.on_player_joined_game, function(event)
+    b_add(online_players, event.player_index, game.get_player(event.player_index))
+end)
+
+bb.add(defines.events.on_player_left_game, function(event)
+    b_remove(online_players, event.player_index)
+end)
+
+bb.add(NTH_TICK, function(event)
+    for player_index, player in pairs(b_bucket(online_players, event.tick)) do
+        if player.valid then
+            update_player_tag(player_index, player)
+        else
+            b_remove(online_players, player_index)
+        end
+    end
 end, { on_nth_tick = true })
