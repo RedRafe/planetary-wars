@@ -1,4 +1,4 @@
----@class StateMAchine
+---@class StateMachine
 local StateMachine = {}
 StateMachine.__index = StateMachine
 
@@ -10,12 +10,10 @@ local Token = require 'scripts.core.token'
 ---@param states table<string, number>
 ---@param events table<number, number>
 function StateMachine.new(states, events)
-    local _, startup = next(states)
-
     return setmetatable({
         states = states,
         events = events,
-        current_state = startup,
+        current_state = -1,
     }, StateMachine)
 end
 
@@ -25,11 +23,12 @@ end
 function StateMachine:raise_event_for_state(state, data)
     local event = self.events[state]
 
-    if event then
-        return script.raise_event(event, data or {})
+    if not event then
+        error('Unknown state: ' .. serpent.block({ state = state, events = self.events }))
     end
 
-    error('Unknown state: ' .. serpent.line(state))
+    bb.print(string.format('[color=red][STATE][/color]: %s (%d)', table.index_of(self.states, state), state))
+    return script.raise_event(event, data or {})
 end
 
 ---@param self StateMachine
@@ -49,11 +48,6 @@ end)
 ---@param data? table
 function StateMachine:transition(next_state, data)
     next_state = next_state or (self.current_state + 1) % table.size(self.states)
-
-    local _, startup = next(self.states)
-    if next_state == startup then
-        next_state = next_state + 1
-    end
 
     Task.set_timeout_in_ticks(1, set_state_callback, {
         self = self,

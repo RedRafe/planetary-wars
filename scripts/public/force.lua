@@ -1,3 +1,5 @@
+local Config = require 'scripts.config'
+
 local Force = {}
 
 local function generate_force_table(side)
@@ -24,13 +26,13 @@ end
 
 Force.on_init = function()
     local north = game.create_force('north')
-    north.set_spawn_position({ 0, -90}, 'nauvis')
+    north.set_spawn_position(Config.spawn_point.north, 'nauvis')
     north.set_cease_fire('player', true)
     north.set_friend('player', true)
     north.share_chart = true
 
     local south = game.create_force('south')
-    south.set_spawn_position({ 0, 90}, 'nauvis')
+    south.set_spawn_position(Config.spawn_point.south, 'nauvis')
     south.set_cease_fire('player', true)
     south.set_friend('player', true)
     south.share_chart = true

@@ -1,43 +1,37 @@
+local Config = require 'scripts.config'
 local StateMachine = require 'utils.containers.state-machine'
 
 local Game = {}
 
----@alias GameState
-local states = {
-    initializing = 0,
-    picking      = 1,
-    preparing    = 2,
-    playing      = 3,
-    finished     = 4,
-    resetting    = 5,
+local events = {
+    [Config.game_state.initializing] = defines.events.on_map_init,
+    [Config.game_state.picking]      = defines.events.on_match_picking_phase,
+    [Config.game_state.preparing]    = defines.events.on_match_preparation_phase,
+    [Config.game_state.playing]      = defines.events.on_match_started,
+    [Config.game_state.finished]     = defines.events.on_match_finished,
+    [Config.game_state.resetting]    = defines.events.on_map_reset,
 }
 
-local events = {
-    [states.picking]   = defines.events.on_match_picking_phase,
-    [states.preparing] = defines.events.on_match_preparation_phase,
-    [states.playing]   = defines.events.on_match_started,
-    [states.finished]  = defines.events.on_match_finished,
-    [states.resetting] = defines.events.on_map_reset,
-}
+local game_state = StateMachine.new(Config.game_state, events)
 
 local this = {
-    state = StateMachine.new(states, events),
     tick_started = -1,
     tick_finished = -1,
 }
 
-bb.subscribe(this, function(tbl)
-    this = tbl
+bb.subscribe({ this = this, game_state = game_state }, function(tbl)
+    this = tbl.this
+    game_state = tbl.game_state
 end)
 
 ---@return GameState
 Game.state = function()
-    return this.state:get_state()
+    return game_state:get_state()
 end
 
 ---@param state? GameState
 Game.transition = function(state)
-    this.state:transition(state)
+    game_state:transition(state)
 end
 
 ---@return number

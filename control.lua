@@ -19,7 +19,6 @@ require 'scripts.modules.commands'
 require 'scripts.modules.corpse_tag'
 require 'scripts.modules.floaty_chat'
 require 'scripts.modules.freeplay'
-require 'scripts.modules.restart'
 require 'scripts.modules.terrain'
 
 --- GUIs

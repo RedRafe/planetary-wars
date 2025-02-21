@@ -1,4 +1,5 @@
 local events = {
+    'on_map_init',
     'on_map_reset',
     'on_match_started',
     'on_match_finished',

@@ -1,3 +1,5 @@
+local Config = require 'scripts.config'
+
 local Tag = {}
 
 local string_format = string.format
@@ -9,28 +11,7 @@ local table_keys = table.keys
 ---@field default boolean
 
 local tagged_players = {}
-local tags = {
-    -- 5
-    Referee    = { rank = 5, default = true, sprite = 'info_no_border' },
-    -- 4
-    Captain    = { rank = 4, default = true, sprite = 'virtual-signal/signal-star' },
-    -- 3
-    Custom     = { rank = 3, default = true, sprite = 'item/coin' },
-    -- 2
-    Laser      = { rank = 2, default = true, sprite = 'item/laser-turret' },
-    Main       = { rank = 2, default = true, sprite = 'item/assembling-machine-2' },
-    Nuclear    = { rank = 2, default = true, sprite = 'item/nuclear-reactor' },
-    Oil        = { rank = 2, default = true, sprite = 'item/pumpjack' },
-    Power      = { rank = 2, default = true, sprite = 'item/steam-engine' },
-    Rocket     = { rank = 2, default = true, sprite = 'item/rocket-part' },
-    Spam       = { rank = 2, default = true, sprite = 'item/tank-cannon' },
-    Support    = { rank = 2, default = true, sprite = 'item/electric-mining-drill' },
-    Threatfarm = { rank = 2, default = true, sprite = 'item/grenade' },
-    Wall       = { rank = 2, default = true, sprite = 'item/stone-wall' },
-    -- 1
-    East       = { rank = 1, default = true, sprite = 'virtual-signal/signal-E' },
-    West       = { rank = 1, default = true, sprite = 'virtual-signal/signal-W' },
-}
+local tags = Config.tags
 
 bb.subscribe({
     tags = tags,

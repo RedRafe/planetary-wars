@@ -2,6 +2,7 @@
 -- luacheck: ignore script
 
 _G.bb = {}
+_DEBUG = true
 
 local function require_lib(path)
     for k, v in pairs(require(path)) do
@@ -9,6 +10,25 @@ local function require_lib(path)
             error(string.format('Trying to override lib function %s from %s', k, path))
         end
         bb[k] = v
+    end
+end
+
+bb.print = function(any)
+    if not _DEBUG then
+        return
+    end
+
+    local obj
+    if type(any) == 'string' or type(any) == 'number' or type(any) == 'boolean' then
+        obj = any
+    else
+        obj = serpent.block(any)
+    end
+
+    if game then
+        game.print(obj)
+    else
+        log(obj)
     end
 end
 

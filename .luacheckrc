@@ -162,6 +162,7 @@ stds[LIB_CONTROL] = {
                 events = {
                     other_fields = false,
                     fields = {
+                        'om_map_init',
                         'on_map_reset',
                         'on_match_started',
                         'on_match_finished',

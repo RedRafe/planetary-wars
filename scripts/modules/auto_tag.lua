@@ -1,4 +1,5 @@
 local Buckets = require 'utils.containers.buckets'
+local Config = require 'scripts.config'
 local Tag = require 'scripts.public.tags'
 
 local math_abs = math.abs
@@ -8,8 +9,8 @@ local clear_player_tag = Tag.clear_player_tag
 
 local NTH_TICK = 36
 local OUTPOST_DISTANCE = 600
-local EAST = 'East'
-local WEST = 'West'
+local EAST = Config.tags.East
+local WEST = Config.tags.West
 
 local online_players = Buckets.new(math.ceil(60 * 60 / NTH_TICK))
 bb.subscribe(online_players, function(tbl) online_players = tbl end)

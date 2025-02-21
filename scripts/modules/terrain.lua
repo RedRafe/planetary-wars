@@ -31,7 +31,7 @@ local function clear_landing_pad_area(args)
     end
 end
 
-bb.on_init(function()
+bb.add(defines.events.on_map_init, function()
     local surface = game.surfaces.nauvis
     local start = { x = -32 + math.random(0, 64), y = -102 }
     local radius = 12
@@ -41,19 +41,33 @@ bb.on_init(function()
         { force = 'south', position = { x = start.x, y = -start.y } }
     }) do
         clear_landing_pad_area{ position = ref.position, radius = radius }
+
         local position = surface.find_non_colliding_position('cargo-landing-pad', ref.position, radius, 1, true)
-        if position then
-            local entity = surface.create_entity {
-                name = 'cargo-landing-pad',
-                position = position,
-                force = ref.force,
-            }
-            if entity then
-                entity.minable_flag = false
-                set_landing_pad_tiles(entity)
-            end
-        end
+        assert(position, 'No position found for cargo landing pad')
+
+        local entity = surface.create_entity {
+            name = 'cargo-landing-pad',
+            position = position,
+            force = ref.force,
+        }
+        assert(entity, 'Invalid cargo landing pad')
+
+        entity.minable_flag = false
+        set_landing_pad_tiles(entity)
     end
+
+    game.forces.player.chart_all()
+end)
+
+bb.add(defines.events.on_map_reset, function()
+    local surface = game.surfaces.nauvis
+    local mgs = surface.map_gen_settings
+    mgs.seed = math.random(341, 4294967294)
+    surface.map_gen_settings = mgs
+
+    surface.clear(true)
+    surface.request_to_generate_chunks({ x = 0, y = 0 }, 8)
+    surface.force_generate_chunk_requests()
 end)
 
 return Public

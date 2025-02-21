@@ -1,13 +1,14 @@
+local Config = require 'scripts.config'
 local Permission = {}
 
 local groups = {
-    default = 'default',
-    north = 'default',
-    south = 'default',
-    player = 'player',
-    spectator = 'player',
-    jail = 'jail',
-    admin = 'admin',
+    default = Config.permission_group.default,
+    north = Config.permission_group.default,
+    south = Config.permission_group.default,
+    player = Config.permission_group.player,
+    spectator = Config.permission_group.player,
+    jail = Config.permission_group.jail,
+    admin = Config.permission_group.admin,
 }
 Permission.groups = groups
 
@@ -34,21 +35,21 @@ Permission.set_player_group = function(player_index, group_name)
         return
     end
 
-    player.permission_group = game.permissions.get_group(group_name or groups.player)
+    player.permission_group = game.permissions.get_group(group_name or Config.permission_group.player)
 end
 
 Permission.on_init = function()
-    game.permissions.get_group('Default').name = 'admin'
+    game.permissions.get_group('Default').name = Config.permission_group.admin
 
-    Permission.apply_permissions('default', true)
-    Permission.apply_permissions('default', false, {
+    Permission.apply_permissions(Config.permission_group.default, true)
+    Permission.apply_permissions(Config.permission_group.default, false, {
         defines.input_action.delete_permission_group,
         defines.input_action.import_blueprint_string,
         defines.input_action.open_blueprint_library_gui,
     })
 
-    Permission.apply_permissions('player', false)
-    Permission.apply_permissions('player', true, {
+    Permission.apply_permissions(Config.permission_group.player, false)
+    Permission.apply_permissions(Config.permission_group.player, true, {
         defines.input_action.admin_action,
         defines.input_action.change_active_item_group_for_filters,
         defines.input_action.change_active_quick_bar,
@@ -78,8 +79,8 @@ Permission.on_init = function()
         defines.input_action.write_to_console,
     })
 
-    Permission.apply_permissions('jail', false)
-    Permission.apply_permissions('jail', true, {
+    Permission.apply_permissions(Config.permission_group.jail, false)
+    Permission.apply_permissions(Config.permission_group.jail, true, {
         defines.input_action.edit_permission_group,
         defines.input_action.write_to_console,
     })
@@ -96,7 +97,7 @@ Permission.on_player_changed_force = function(event)
         return
     end
 
-    Permission.set_player_group(player.index, player.force.name)
+    Permission.set_player_group(player.index, Permission.groups[player.force.name])
 end
 
 Permission.on_player_created = function(event)
@@ -104,12 +105,12 @@ Permission.on_player_created = function(event)
         return
     end
 
-    Permission.set_player_group(event.player_index, groups.player)
+    Permission.set_player_group(event.player_index, Config.permission_group.player)
 end
 
 Permission.on_singleplayer_init = function()
     for _, player in pairs(game.connected_players) do
-        Permission.set_player_group(player.index, groups.admin)
+        Permission.set_player_group(player.index, Config.permission_group.admin)
     end
 end
 

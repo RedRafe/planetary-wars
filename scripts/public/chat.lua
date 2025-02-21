@@ -1,15 +1,14 @@
 local Chat = {}
 
 local format = string.format
-
-local muted_players = {}
-bb.subscribe(muted_players, function(tbl) muted_players = tbl end)
-
 local force_names_map = {
     player = 'Spectator',
     north = 'North',
     south = 'South'
 }
+
+local muted_players = {}
+bb.subscribe(muted_players, function(tbl) muted_players = tbl end)
 
 Chat.is_muted = function(player_index)
     return muted_players[player_index] ~= nil
