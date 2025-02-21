@@ -79,6 +79,7 @@ files['**/settings/'].std = DATA_RULES
 
 files['**/scripts/'].std = CONTROL_RULES
 files['**/control.lua'].std = CONTROL_RULES
+files['**/utils/containers/'].std = CONTROL_RULES
 files['**/utils/event-core.lua'].std = CONTROL_RULES
 files['**/utils/event.lua'].std = CONTROL_RULES
 files['**/utils/gui.lua'].std = CONTROL_RULES

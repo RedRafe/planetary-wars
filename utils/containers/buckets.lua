@@ -1,75 +1,82 @@
-local DEFAULT_INTERVAL = 60
-
+---@class Buckets
 local Buckets = {}
+Buckets.__index = Buckets
+
+script.register_metatable('Buckets', Buckets)
+
+local DEFAULT_INTERVAL = 60
 
 ---@param interval? number
 function Buckets.new(interval)
-    return { list = {}, interval = interval or DEFAULT_INTERVAL }
+    return setmetatable({
+        list = {},
+        interval = interval or DEFAULT_INTERVAL
+    }, Buckets)
 end
 
----@param bucket table
+---@param self Buckets
 ---@param id number|string
 ---@param data any
-function Buckets.add(bucket, id, data)
-    local bucket_id = id % bucket.interval
-    bucket.list[bucket_id] = bucket.list[bucket_id] or {}
-    bucket.list[bucket_id][id] = data or {}
+function Buckets:add(id, data)
+    local bucket_id = id % self.interval
+    self.list[bucket_id] = self.list[bucket_id] or {}
+    self.list[bucket_id][id] = data or {}
 end
 
----@param bucket table
+---@param self Buckets
 ---@param id number|string
-function Buckets.get(bucket, id)
+function Buckets:get(id)
     if not id then
         return
     end
-    local bucket_id = id % bucket.interval
-    return bucket.list[bucket_id] and bucket.list[bucket_id][id]
+    local bucket_id = id % self.interval
+    return self.list[bucket_id] and self.list[bucket_id][id]
 end
 
----@param bucket table
+---@param self Buckets
 ---@param id number|string
-function Buckets.remove(bucket, id)
+function Buckets:remove(id)
     if not id then
         return
     end
-    local bucket_id = id % bucket.interval
-    if bucket.list[bucket_id] then
-        bucket.list[bucket_id][id] = nil
+    local bucket_id = id % self.interval
+    if self.list[bucket_id] then
+        self.list[bucket_id][id] = nil
     end
 end
 
----@param bucket table
+---@param self Buckets
 ---@param id number|string
-function Buckets.get_bucket(bucket, id)
-    local bucket_id = id % bucket.interval
-    bucket.list[bucket_id] = bucket.list[bucket_id] or {}
-    return bucket.list[bucket_id]
+function Buckets:get_bucket(id)
+    local bucket_id = id % self.interval
+    self.list[bucket_id] = self.list[bucket_id] or {}
+    return self.list[bucket_id]
 end
 
 -- Redistributes current buckets content over a new time interval
----@param bucket table
+---@param self Buckets
 ---@param new_interval number
-function Buckets.reallocate(bucket, new_interval)
+function Buckets:reallocate(new_interval)
     new_interval = new_interval or DEFAULT_INTERVAL
-    if bucket.interval == new_interval then
+    if self.interval == new_interval then
         return
     end
     local tmp = {}
 
     -- Collect data from existing buckets
-    for b_id = 0, bucket.interval - 1 do
-        for id, data in pairs(bucket.list[b_id] or {}) do
+    for b_id = 0, self.interval - 1 do
+        for id, data in pairs(self.list[b_id] or {}) do
             tmp[id] = data
         end
     end
 
     -- Clear old buckets
-    bucket.list = {}
+    self.list = {}
 
     -- Update interval and reinsert data
-    bucket.interval = new_interval
+    self.interval = new_interval
     for id, data in pairs(tmp) do
-        Buckets.add(bucket, id, data)
+        self:add(id, data)
     end
 end
 
@@ -79,7 +86,7 @@ end
 function Buckets.migrate(tbl, interval)
     local bucket = Buckets.new(interval)
     for id, data in pairs(tbl) do
-        Buckets.add(bucket, id, data)
+        bucket:add(id, data)
     end
     return bucket
 end

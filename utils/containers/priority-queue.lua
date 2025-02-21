@@ -1,55 +1,47 @@
-local floor = math.floor
-local getmetatable = getmetatable
-local setmetatable = setmetatable
-
+---@class PriorityQueue
 local PriorityQueue = {}
+PriorityQueue.__index = PriorityQueue
 
-local function default_comparator(a, b)
+script.register_metatable('PriorityQueue', PriorityQueue)
+
+--- Min heap implementation of a priority queue. Smaller elements, as determined by the comparator, have a higher priority.
+---@param comparator <function|nil> the comparator function used to compare elements, if nil the default comparator is used
+---@usage
+--- local PriorityQueue = require 'utils.containers.priority-queue'
+---
+--- local queue = PriorityQueue.new()
+--- PriorityQueue.push(queue, 4)
+--- PriorityQueue.push(queue, 7)
+--- PriorityQueue.push(queue, 2)
+---
+--- game.print(PriorityQueue.pop(queue)) --- 2
+--- game.print(PriorityQueue.pop(queue)) --- 4
+--- game.print(PriorityQueue.pop(queue)) --- 7
+
+local floor = math.floor
+
+---@param comparator? function, the comparator function used to compare elements, if nil the default comparator is used
+---@param metatableID? string, uniqueID, mandatory if comparator is specified
+function PriorityQueue.new(comparator, metatableID)
+    local NewPQ = table.deepcopy(PriorityQueue)
+
+    if comparator then
+        assert(metatableID)
+        NewPQ.comparator = comparator
+        script.register_metatable(metatableID, NewPQ)
+    end
+
+    return setmetatable({}, NewPQ)
+end
+
+--- Default comparator
+PriorityQueue.comparator = function(a, b)
     return a < b
 end
 
---- Min heap implementation of a priority queue. Smaller elements, as determined by the comparator,
--- have a higher priority.
--- @param comparator <function|nil> the comparator function used to compare elements, if nil the
--- deafult comparator is used.
--- @usage
--- local PriorityQueue = require 'utils.priority_queue'
---
--- local queue = PriorityQueue.new()
--- PriorityQueue.push(queue, 4)
--- PriorityQueue.push(queue, 7)
--- PriorityQueue.push(queue, 2)
---
--- game.print(PriorityQueue.pop(queue)) -- 2
--- game.print(PriorityQueue.pop(queue)) -- 4
--- game.print(PriorityQueue.pop(queue)) -- 7
-function PriorityQueue.new(comparator)
-    if comparator == nil then
-        comparator = default_comparator
-    end
-
-    local mt = {comparator = comparator}
-
-    return setmetatable({}, mt)
-end
-
-function PriorityQueue.load(self, comparator)
-    if comparator == nil then
-        comparator = default_comparator
-    end
-
-    local mt = {comparator = comparator}
-
-    return setmetatable(self or {}, mt)
-end
-
-local function get_comparator(self)
-    local mt = getmetatable(self)
-    return mt.comparator
-end
-
+---@param self PriorityQueue
 local function heapify_from_end_to_start(self)
-    local comparator = get_comparator(self)
+    local comparator = self.comparator
     local pos = #self
     while pos > 1 do
         local parent = floor(pos * 0.5)
@@ -63,8 +55,9 @@ local function heapify_from_end_to_start(self)
     end
 end
 
+---@param self PriorityQueue
 local function heapify_from_start_to_end(self)
-    local comparator = get_comparator(self)
+    local comparator = self.comparator
     local parent = 1
     local smallest = 1
     local count = #self
@@ -91,19 +84,23 @@ local function heapify_from_start_to_end(self)
 end
 
 --- Returns the number of the number of elements in the priority queue.
-function PriorityQueue.size(self)
+---@param self PriorityQueue
+function PriorityQueue:size()
     return #self
 end
 
--- Inserts an element into the priority queue.
-function PriorityQueue.push(self, element)
+--- Inserts an element into the priority queue.
+---@param self PriorityQueue
+---@param element any
+function PriorityQueue:push(element)
     self[#self + 1] = element
     heapify_from_end_to_start(self)
 end
 
--- Removes and returns the highest priority element from the priority queue.
--- If the priority queue is empty returns nil.
-function PriorityQueue.pop(self)
+--- Removes and returns the highest priority element from the priority queue.
+--- If the priority queue is empty returns nil.
+---@param self PriorityQueue
+function PriorityQueue:pop()
     local element = self[1]
 
     self[1] = self[#self]
@@ -113,9 +110,10 @@ function PriorityQueue.pop(self)
     return element
 end
 
--- Returns, without removing, the highest priority element from the priority queue.
--- If the priority queue is empty returns nil.
-function PriorityQueue.peek(self)
+--- Returns, without removing, the highest priority element from the priority queue.
+--- If the priority queue is empty returns nil.
+---@param self PriorityQueue
+function PriorityQueue:peek()
     return self[1]
 end
 

@@ -1,68 +1,86 @@
+---@class Queue
 local Queue = {}
+Queue.__index = Queue
+
+script.register_metatable('Queue', Queue)
 
 function Queue.new()
-    local queue = {_head = 1, _tail = 1}
-    return queue
+    return setmetatable({
+        _head = 1,
+        _tail = 1
+    }, Queue)
 end
 
-function Queue.size(queue)
-    return queue._head - queue._tail
+---@param self Queue
+function Queue:size()
+    return self._head - self._tail
 end
 
-function Queue.push(queue, element)
-    local index = queue._head
-    queue[index] = element
-    queue._head = index + 1
+---@param self Queue
+---@param element any
+function Queue:push(element)
+    local index = self._head
+    self[index] = element
+    self._head = index + 1
 end
 
 --- Pushes the element such that it would be the next element pop'ed.
-function Queue.push_to_end(queue, element)
-    local index = queue._tail - 1
-    queue[index] = element
-    queue._tail = index
+---@param self Queue
+---@param element any
+function Queue:push_to_end(element)
+    local index = self._tail - 1
+    self[index] = element
+    self._tail = index
 end
 
-function Queue.peek(queue)
-    return queue[queue._tail]
+---@param self Queue
+function Queue:peek()
+    return self[self._tail]
 end
 
-function Queue.peek_start(queue)
-    return queue[queue._head - 1]
+---@param self Queue
+function Queue:peek_start()
+    return self[self._head - 1]
 end
 
-function Queue.peek_index(queue, index)
-    return queue[queue._tail + index - 1]
+---@param self Queue
+---@param index number
+function Queue:peek_index(index)
+    return self[self._tail + index - 1]
 end
 
-function Queue.pop(queue)
-    local index = queue._tail
+---@param self Queue
+function Queue:pop()
+    local index = self._tail
 
-    local element = queue[index]
-    queue[index] = nil
+    local element = self[index]
+    self[index] = nil
 
     if element then
-        queue._tail = index + 1
+        self._tail = index + 1
     end
 
     return element
 end
 
-function Queue.to_array(queue)
+---@param self Queue
+function Queue:to_array()
     local n = 1
     local res = {}
 
-    for i = queue._tail, queue._head - 1 do
-        res[n] = queue[i]
+    for i = self._tail, self._head - 1 do
+        res[n] = self[i]
         n = n + 1
     end
 
     return res
 end
 
-function Queue.pairs(queue)
-    local index = queue._tail
+---@param self Queue
+function Queue:pairs()
+    local index = self._tail
     return function()
-        local element = queue[index]
+        local element = self[index]
 
         if element then
             local old = index
@@ -74,11 +92,12 @@ function Queue.pairs(queue)
     end
 end
 
-function Queue.clear(queue)
-    for k, _ in pairs(queue) do
-        queue[k] = nil
+---@param self Queue
+function Queue:clear()
+    for k, _ in pairs(self) do
+        self[k] = nil
     end
-    queue._head, queue._tail = 1, 1
+    self._head, self._tail = 1, 1
 end
 
 return Queue

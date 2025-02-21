@@ -2,9 +2,6 @@ local Buckets = require 'utils.containers.buckets'
 local Tag = require 'scripts.public.tags'
 
 local math_abs = math.abs
-local b_add    = Buckets.add
-local b_remove = Buckets.remove
-local b_bucket = Buckets.get_bucket
 local add_player_tag   = Tag.add_player_tag
 local get_player_tag   = Tag.get_player_tag
 local clear_player_tag = Tag.clear_player_tag
@@ -36,19 +33,19 @@ local function update_player_tag(player_index, player)
 end
 
 bb.add(defines.events.on_player_joined_game, function(event)
-    b_add(online_players, event.player_index, game.get_player(event.player_index))
+    online_players:add(event.player_index, game.get_player(event.player_index))
 end)
 
 bb.add(defines.events.on_player_left_game, function(event)
-    b_remove(online_players, event.player_index)
+    online_players:remove(event.player_index)
 end)
 
 bb.add(NTH_TICK, function(event)
-    for player_index, player in pairs(b_bucket(online_players, event.tick)) do
+    for player_index, player in pairs(online_players:get_bucket(event.tick)) do
         if player.valid then
             update_player_tag(player_index, player)
         else
-            b_remove(online_players, player_index)
+            online_players:remove(player_index)
         end
     end
 end, { on_nth_tick = true })

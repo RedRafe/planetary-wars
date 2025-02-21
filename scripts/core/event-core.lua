@@ -1,4 +1,3 @@
--- luacheck: globals script
 -- created by: grilledham
 -- source: https://github.com/Refactorio/RedMew/blob/develop/utils/event_core.lua
 -- modified by: RedRafe

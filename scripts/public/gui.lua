@@ -27,13 +27,14 @@ end
 ---@param element LuaGuiElement
 ---@param value any
 Gui.set_data = function(element, value)
-    data[element.player_index * 0x100000000 + element.index] = value
+    data[element.player_index] = data[element.player_index] or {}
+    data[element.player_index][element.index] = value
 end
 
 -- Gets the associated data with this LuaGuiElement, if any
 ---@param element LuaGuiElement
 Gui.get_data = function(element)
-    return data[element.player_index * 0x100000000 + element.index]
+    return data[element.player_index] and data[element.player_index][element.index]
 end
 
 -- Sets the style of the LuaGuiElement to a prototype, if string, or sets LuaGuiElement::style attributes as provided in the table
