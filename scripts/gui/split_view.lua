@@ -1,5 +1,5 @@
 local Colors = require 'utils.colors'
-local Gui = require 'scripts.public.gui'
+local Gui = require 'scripts.modules.gui'
 
 ---@param config table
 ---@param config.main_button_name string

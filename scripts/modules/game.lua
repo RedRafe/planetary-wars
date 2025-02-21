@@ -48,25 +48,6 @@ Game.ticks = function()
     end
 end
 
-Game.on_init = function()
-    Game.transition()
-end
-
-Game.on_map_reset = function()
-    this.tick_started = -1
-    this.tick_finished = -1
-    game.reset_game_state()
-    game.reset_time_played()
-end
-
-Game.on_match_started = function()
-    this.tick_started = game.tick
-end
-
-Game.on_match_finished = function()
-    this.tick_finished = game.tick
-end
-
 Game.for_teams = function(callback, ...)
     local forces = game.forces
     callback(forces.north, ...)
@@ -89,5 +70,24 @@ Game.for_players = function(callback, ...)
         callback(player, ...)
     end
 end
+
+Game.on_init = function()
+    Game.transition()
+end
+
+bb.add(defines.events.on_map_reset, function()
+    this.tick_started = -1
+    this.tick_finished = -1
+    game.reset_game_state()
+    game.reset_time_played()
+end)
+
+bb.add(defines.events.on_match_started, function()
+    this.tick_started = game.tick
+end)
+
+bb.add(defines.events.on_match_finished, function()
+    this.tick_finished = game.tick
+end)
 
 return Game

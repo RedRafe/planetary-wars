@@ -337,7 +337,7 @@ end
 
 -- ============================================================================
 
-Gui.on_player_created = function(event)
+bb.add(defines.events.on_player_created, function(event)
     local player = event.player_index and game.get_player(event.player_index)
     if not (player and player.valid) then
         return
@@ -345,6 +345,6 @@ Gui.on_player_created = function(event)
 
     local mod_gui_top_frame = Gui.get_top_flow(player).parent
     Gui.set_style(mod_gui_top_frame, { padding = 2 })
-end
+end)
 
 return Gui

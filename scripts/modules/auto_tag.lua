@@ -1,6 +1,6 @@
 local Buckets = require 'utils.containers.buckets'
 local Config = require 'scripts.config'
-local Tag = require 'scripts.public.tags'
+local Tag = require 'scripts.modules.tags'
 
 local math_abs = math.abs
 local add_player_tag   = Tag.add_player_tag

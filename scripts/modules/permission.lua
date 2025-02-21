@@ -86,7 +86,7 @@ Permission.on_init = function()
     })
 end
 
-Permission.on_player_changed_force = function(event)
+bb.add(defines.events.on_player_changed_force, function(event)
     local player = event.player_index and game.get_player(event.player_index)
     if not (player and player.valid) then
         return
@@ -98,20 +98,20 @@ Permission.on_player_changed_force = function(event)
     end
 
     Permission.set_player_group(player.index, Permission.groups[player.force.name])
-end
+end)
 
-Permission.on_player_created = function(event)
+bb.add(defines.events.on_player_created, function(event)
     if not game.is_multiplayer() then
         return
     end
 
     Permission.set_player_group(event.player_index, Config.permission_group.player)
-end
+end)
 
-Permission.on_singleplayer_init = function()
+bb.add(defines.events.on_singleplayer_init, function()
     for _, player in pairs(game.connected_players) do
         Permission.set_player_group(player.index, Config.permission_group.admin)
     end
-end
+end)
 
 return Permission

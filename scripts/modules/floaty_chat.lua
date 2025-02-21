@@ -1,4 +1,4 @@
-local Chat = require 'scripts.public.chat'
+local Chat = require 'scripts.modules.chat'
 
 local MIN_LIFETIME = 06 * 60 -- 06s
 local MAX_LIFETIME = 20 * 60 -- 20s

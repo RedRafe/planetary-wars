@@ -6,6 +6,7 @@ local function generate_force_table(side)
     return {
         threat = 0,
         name = string.capital_letter(side),
+        cargo_landing_pad = false,
     }
 end
 
@@ -38,12 +39,12 @@ Force.on_init = function()
     south.share_chart = true
 end
 
-Force.on_map_reset = function()
+bb.add(defines.events.on_map_reset, function()
     this.north = generate_force_table('north')
     this.south = generate_force_table('south')
     for _, f in pairs(game.forces) do
         f.reset()
     end
-end
+end)
 
 return Force

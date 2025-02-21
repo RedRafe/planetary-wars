@@ -14,16 +14,16 @@ Chat.is_muted = function(player_index)
     return muted_players[player_index] ~= nil
 end
 
-Chat.on_player_muted = function(event)
+bb.add(defines.events.on_player_muted, function(event)
     muted_players[event.player_index] = true
-end
+end)
 
-Chat.on_player_unmuted = function(event)
+bb.add(defines.events.on_player_unmuted, function(event)
     muted_players[event.player_index] = nil
-end
+end)
 
 --- Forward team chats to spectators
-Chat.on_console_chat = function(event)
+bb.add(defines.events.on_console_chat, function(event)
     local index = event.player_index
     local message = event.message
     if not (index and message) then
@@ -53,6 +53,6 @@ Chat.on_console_chat = function(event)
             game.forces.player.print(msg, { color = player.color })
         end
     end
-end
+end)
 
 return Chat

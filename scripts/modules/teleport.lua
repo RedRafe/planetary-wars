@@ -25,10 +25,10 @@ Teleport.teleport_all = function(player_list, destination)
     end
 end
 
-Teleport.on_player_changed_force = function(event)
+bb.add(defines.events.on_player_changed_force, function(event)
     local player = event.player_index and game.get_player(event.player_index)
     local destination = Config.spawn_point[player and player.force.name]
     Teleport.teleport(player, destination)
-end
+end)
 
 return Teleport

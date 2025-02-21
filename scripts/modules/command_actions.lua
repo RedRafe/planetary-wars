@@ -1,4 +1,4 @@
-local Game = require 'scripts.public.game'
+local Game = require 'scripts.modules.game'
 
 local Actions = {}
 

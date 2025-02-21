@@ -1,4 +1,4 @@
-local Gui = require 'scripts.public.gui'
+local Gui = require 'scripts.modules.gui'
 local SplitView = require 'scripts.gui.split_view'
 
 local Public = SplitView{

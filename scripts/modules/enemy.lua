@@ -8,12 +8,12 @@ local tiers = require 'scripts.cache.enemy-tiers'
 Enemy.tiers = tiers
 
 --- Re-assigns unit-spawners and worms to the respective force when auto-placed
-Enemy.on_enemy_entity_created = function(event)
+bb.on_trigger('on_enemy_entity_created', function(event)
     local entity = event.source_entity
     entity.force = (entity.position.y > 0) and 'north' or 'south'
-end
+end)
 
-Enemy.on_entity_died = function(event)
+bb.add(defines.events.on_entity_died, function(event)
     local entity = event.entity
     if not (entity and entity.valid) then
         return
@@ -42,13 +42,13 @@ Enemy.on_entity_died = function(event)
             }
         end
     end
-end
+end)
 
-Enemy.on_match_finished = function()
+bb.add(defines.events.on_match_finished, function()
     -- Freeze all moving parts
     for _, entity in pairs(game.surfaces.nauvis.find_entities_filtered({ type = { 'unit', 'unit-spawner', 'turret' } })) do
         entity.active = false
     end
-end
+end)
 
 return Enemy
