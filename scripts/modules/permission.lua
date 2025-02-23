@@ -39,7 +39,7 @@ Permission.set_player_group = function(player_index, group_name)
     player.permission_group = game.permissions.get_group(group_name or Config.permission_group.player)
 end
 
-Permission.on_init = function()
+bb.on_init(function()
     game.permissions.get_group('Default').name = Config.permission_group.admin
 
     Permission.apply_permissions(Config.permission_group.default, true)
@@ -85,7 +85,7 @@ Permission.on_init = function()
         defines.input_action.edit_permission_group,
         defines.input_action.write_to_console,
     })
-end
+end)
 
 bb.add(defines.events.on_player_changed_force, function(event)
     local player = event.player_index and game.get_player(event.player_index)

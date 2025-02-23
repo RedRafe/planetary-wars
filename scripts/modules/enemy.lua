@@ -8,13 +8,12 @@ local Enemy = {}
 local math_round = math.round
 local math_random = math.random
 
-local triggers = Shared.triggers
 local create_local_flying_text = Utils.create_local_flying_text
 local turret_search_filter = { radius = 70, type = 'unit-spawner', limit = 1 }
 local turret_warning_message = { text = { 'warning.prevent_turret_creep' }, color = Colors.red }
 
 --- Re-assigns unit-spawners and worms to the respective force when auto-placed
-bb.on_trigger(triggers.on_enemy_created, function(event)
+bb.on_trigger(Shared.triggers.on_enemy_created, function(event)
     local entity = event.source_entity
     if not (entity and entity.valid) then
         return
@@ -24,7 +23,7 @@ bb.on_trigger(triggers.on_enemy_created, function(event)
 end)
 
 --- Prevent turret creep
-bb.on_trigger(triggers.on_built_turret, function(event)
+bb.on_trigger(Shared.triggers.on_built_turret, function(event)
     local entity = event.source_entity
     if not (entity and entity.valid) then
         return

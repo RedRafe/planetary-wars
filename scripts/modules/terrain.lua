@@ -22,22 +22,18 @@ end
 
 local function clear_landing_pad_area(args)
     local surface = game.surfaces.nauvis
-    local filter = {
-        position = args.position,
-        radius = args.radius,
-        collision_mask = { 'player', 'object' },
-    }
-    for _, entity in pairs(surface.find_entities_filtered(filter)) do
-        entity.destroy()
-    end
-
-    filter.collision_mask = nil
+    local filter = { position = args.position, radius = args.radius + 3 }
 
     local tiles = {}
     for _, tile in pairs(surface.find_tiles_filtered(filter)) do
         tiles[#tiles + 1] = { name = 'refined-concrete', position = tile.position }
     end
-    surface.set_tiles(tiles, false)
+    surface.set_tiles(tiles, true)
+
+    filter.collision_mask = { 'player', 'object' }
+    for _, entity in pairs(surface.find_entities_filtered(filter)) do
+        entity.destroy()
+    end
 end
 
 bb.add(defines.events.on_map_init, function()

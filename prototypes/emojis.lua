@@ -1,30 +1,27 @@
 local emojis = require 'graphics.emojis.list'
 local subgroups = require 'graphics.emojis.subgroups'
 
-function localised_name(input)
+local function localised_name(name)
     -- Replace underscores with spaces
-    local result = input:gsub('_', ' ')
-    
+    local result = name:gsub('_', ' ')
+
     -- Capitalize the first character
-    result = result:gsub('^%l', string.upper)
-    return result
+    return result:gsub('^%l', string.upper)
 end
 
-function create_emoji_signal(name)
-    local p = table.deepcopy(data.raw['virtual-signal']['signal-everything'])
-    p.type = 'virtual-signal'
-    p.name = 'emoji-' .. name
-    p.localised_name = localised_name(name)
-    p.icon = string.format('__planetary-wars__/graphics/emojis/icons/%s.png', name)
-    p.icon_size = 64
-    p.icon_mipmaps = 1
-    p.subgroup = 'emojis-'..(subgroups[name] or 'other')
-    p.order = 'emoji-' .. name
-    data:extend({ p })
+local function create_emoji_signal(name)
+    local signal = table.deepcopy(data.raw['virtual-signal']['signal-everything'])
 
-    if not subgroups[name] then 
-        bb.print(name)
-    end
+    signal.type = 'virtual-signal'
+    signal.name = 'emoji-' .. name
+    signal.localised_name = localised_name(name)
+    signal.icon = string.format('__planetary-wars__/graphics/emojis/icons/%s.png', name)
+    signal.icon_size = 64
+    signal.icon_mipmaps = 1
+    signal.subgroup = 'emojis-'..(subgroups[name] or 'other')
+    signal.order = 'emoji-' .. name
+
+    return signal
 end
 
 data:extend({
@@ -99,5 +96,5 @@ data:extend({
 })
 
 for _, name in pairs(emojis) do
-    create_emoji_signal(name)
+    data:extend({ create_emoji_signal(name) })
 end

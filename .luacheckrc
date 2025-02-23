@@ -162,13 +162,13 @@ stds[LIB_CONTROL] = {
                 events = {
                     other_fields = false,
                     fields = {
+                        'on_critical_entity_destroyed',
                         'on_map_init',
                         'on_map_reset',
                         'on_match_started',
                         'on_match_finished',
                         'on_match_picking_phase',
                         'on_match_preparation_phase',
-                        'on_test',
                     }
                 }
             }

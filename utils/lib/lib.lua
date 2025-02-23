@@ -18,14 +18,11 @@ bb.print = function(any)
         return
     end
 
-    local obj
     if type(any) == 'string' or type(any) == 'number' or type(any) == 'boolean' then
-        obj = any
+        log(any)
     else
-        obj = serpent.block(any)
+        log(serpent.block(any))
     end
-
-    log(obj)
 end
 
 -- BB LIBRARY

@@ -27,7 +27,7 @@ function StateMachine:raise_event_for_state(state, data)
         error('Unknown state: ' .. serpent.block({ state = state, events = self.events }))
     end
 
-    bb.print(string.format('[color=red][STATE][/color]: %s (%d)', table.index_of(self.states, state), state))
+    game.print(string.format('[color=red][STATE][/color]: (%d) %s', state, table.index_of(self.states, state)))
     return script.raise_event(event, data or {})
 end
 
@@ -44,7 +44,7 @@ local set_state_callback = Token.register(function(tbl)
 end)
 
 ---@param self StateMachine
----@param next_state number
+---@param next_state? number
 ---@param data? table
 function StateMachine:transition(next_state, data)
     next_state = next_state or (self.current_state + 1) % table.size(self.states)

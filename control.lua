@@ -1,7 +1,9 @@
 require '__planetary-wars__.utils.lib.lib'
 
---- Main
-require 'scripts.events'
+bb.on_init(function()
+    game.create_force('north')
+    game.create_force('south')
+end)
 
 --- Modules
 require 'scripts.modules.auto_tag'
