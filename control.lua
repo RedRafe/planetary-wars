@@ -5,6 +5,7 @@ require 'scripts.events'
 
 --- Modules
 require 'scripts.modules.auto_tag'
+require 'scripts.modules.blueprints'
 require 'scripts.modules.chat'
 require 'scripts.modules.commands'
 require 'scripts.modules.corpse_tag'

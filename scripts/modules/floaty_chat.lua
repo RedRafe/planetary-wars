@@ -32,8 +32,7 @@ local function get_safe_message(message)
     return string_sub(message, 1, MAX_MESSAGE_LENGTH) .. '[...]'
 end
 
----@param event defines.event.on_console_chat
-local function on_console_chat(event)
+bb.add(defines.events.on_console_chat, function(event)
     local index = event.player_index
     local message = event.message
     if not (index and message) then
@@ -70,6 +69,14 @@ local function on_console_chat(event)
         alignment = 'center',
         use_rich_text = true,
     })
-end
+end)
 
-bb.add(defines.events.on_console_chat, on_console_chat)
+
+bb.add(defines.events.on_player_removed, function(event)
+    local popup = floaty_chat[event.player_index]
+    if popup and popup.valid then
+        popup.destroy()
+    end
+
+    floaty_chat[event.player_index] = nil
+end)

@@ -50,3 +50,7 @@ bb.add(NTH_TICK, function(event)
         end
     end
 end, { on_nth_tick = true })
+
+bb.add(defines.events.on_player_removed, function(event)
+    online_players:remove(event.player_index)
+end)

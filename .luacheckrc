@@ -39,7 +39,7 @@ local CONTROL_RULES = 'lua52c+factorio+factorio_control+' .. LIB .. '+' .. LIB_C
 std = RULES
 
 -- Array of strings or field definition map
-globals = { mod_name }
+globals = { mod_name, '_DEBUG' }
 
 -- Number or false
 max_line_length = false
@@ -162,7 +162,7 @@ stds[LIB_CONTROL] = {
                 events = {
                     other_fields = false,
                     fields = {
-                        'om_map_init',
+                        'on_map_init',
                         'on_map_reset',
                         'on_match_started',
                         'on_match_finished',

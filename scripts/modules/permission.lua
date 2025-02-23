@@ -2,13 +2,14 @@ local Config = require 'scripts.config'
 local Permission = {}
 
 local groups = {
-    default = Config.permission_group.default,
-    north = Config.permission_group.default,
-    south = Config.permission_group.default,
-    player = Config.permission_group.player,
+    admin     = Config.permission_group.admin,
+    default   = Config.permission_group.default,
+    north     = Config.permission_group.default,
+    south     = Config.permission_group.default,
+    player    = Config.permission_group.player,
     spectator = Config.permission_group.player,
-    jail = Config.permission_group.jail,
-    admin = Config.permission_group.admin,
+    jail      = Config.permission_group.jail,
+
 }
 Permission.groups = groups
 

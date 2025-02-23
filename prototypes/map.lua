@@ -40,6 +40,7 @@ mgs.autoplace_controls = {
     ['water']       = { frequency = 10,   size = 0.3,   richness = 0.1   },
 }
 mgs.autoplace_settings = mgs.autoplace_settings or { tile = { settings = {} }}
+mgs.autoplace_settings.tile.settings['moat'] = {}
 mgs.autoplace_settings.tile.settings['refined-concrete'] = {}
 
 --- Brightness

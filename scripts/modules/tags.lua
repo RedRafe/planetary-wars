@@ -169,4 +169,8 @@ end
 
 -- ============================================================================
 
+bb.add(defines.events.on_player_removed, function(event)
+    Tag.clear_player_tag(event.player_index)
+end)
+
 return Tag

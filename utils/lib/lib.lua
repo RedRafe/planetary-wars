@@ -25,11 +25,7 @@ bb.print = function(any)
         obj = serpent.block(any)
     end
 
-    if game then
-        game.print(obj)
-    else
-        log(obj)
-    end
+    log(obj)
 end
 
 -- BB LIBRARY

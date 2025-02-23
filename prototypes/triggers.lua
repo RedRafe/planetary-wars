@@ -1,3 +1,5 @@
+local triggers = require 'utils.shared'.triggers
+
 local function effect(event_id)
     return {
         type = 'direct',
@@ -11,10 +13,27 @@ local function effect(event_id)
     }
 end
 
---- Enemies
-data.raw['unit-spawner']['biter-spawner'].created_effect = effect('on_enemy_entity_created')
-data.raw['unit-spawner']['spitter-spawner'].created_effect = effect('on_enemy_entity_created')
+--- Cargo landing pad
+data.raw['cargo-landing-pad']['cargo-landing-pad'].created_effect = effect(triggers.on_cargo_landing_pad_created)
 
-for _, name in pairs{ 'small', 'medium', 'big', 'behemoth' } do
-    data.raw.turret[name..'-worm-turret'].created_effect = effect('on_enemy_entity_created')
+--- Spawners
+for _, prototype in pairs(data.raw['unit-spawner']) do
+    prototype.created_effect = effect(triggers.on_enemy_created)
+end
+
+--- Turrets
+for _, turret_type in pairs({
+    'ammo-turret',
+    'artillery-turret',
+    'electric-turret',
+    'fluid-turret',
+    'turret',
+}) do
+    for _, prototype in pairs(data.raw[turret_type]) do
+        if prototype.subgroup == 'enemies' then
+            prototype.created_effect = effect(triggers.on_enemy_created)
+        else
+            prototype.created_effect = effect(triggers.on_built_turret)
+        end
+    end
 end

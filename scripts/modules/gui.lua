@@ -347,4 +347,8 @@ bb.add(defines.events.on_player_created, function(event)
     Gui.set_style(mod_gui_top_frame, { padding = 2 })
 end)
 
+bb.add(defines.events.on_player_removed, function(event)
+    data[event.player_index] = nil
+end)
+
 return Gui

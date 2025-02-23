@@ -39,6 +39,9 @@ bb.add(defines.events.on_console_chat, function(event)
         return
     end
 
+    message = message:gsub('virtual%-signal=emoji%-', 'img=virtual-signal.emoji-')
+    game.print(message)
+
     local player_force = player.force.name
     local player_tag = player.tag or ''
     local msg = format('%s %s (%s): %s', player.name, player_tag, force_names_map[player_force], message)
@@ -53,6 +56,10 @@ bb.add(defines.events.on_console_chat, function(event)
             game.forces.player.print(msg, { color = player.color })
         end
     end
+end)
+
+bb.add(defines.events.on_player_removed, function(event)
+    muted_players[event.player_index] = nil
 end)
 
 return Chat

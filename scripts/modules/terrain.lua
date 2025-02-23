@@ -17,24 +17,33 @@ local function set_landing_pad_tiles(entity)
             tiles[#tiles + 1] = { name = 'concrete', position = { pos.x + x, pos.y + y } }
         end
     end
-    entity.surface.set_tiles(tiles, true)
+    surface.set_tiles(tiles, true)
 end
 
 local function clear_landing_pad_area(args)
+    local surface = game.surfaces.nauvis
     local filter = {
         position = args.position,
         radius = args.radius,
         collision_mask = { 'player', 'object' },
     }
-    for _, entity in pairs(game.surfaces.nauvis.find_entities_filtered(filter)) do
+    for _, entity in pairs(surface.find_entities_filtered(filter)) do
         entity.destroy()
     end
+
+    filter.collision_mask = nil
+
+    local tiles = {}
+    for _, tile in pairs(surface.find_tiles_filtered(filter)) do
+        tiles[#tiles + 1] = { name = 'refined-concrete', position = tile.position }
+    end
+    surface.set_tiles(tiles, false)
 end
 
 bb.add(defines.events.on_map_init, function()
     local surface = game.surfaces.nauvis
     local start = { x = -32 + math.random(0, 64), y = -102 }
-    local radius = 12
+    local radius = 9
 
     for _, ref in pairs({
         { force = 'north', position = start },

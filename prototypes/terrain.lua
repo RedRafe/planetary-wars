@@ -27,7 +27,7 @@ data:extend({
 })
 
 --- Water
-NF['water_base'].expression = 'if(moat, 100, if((max_elevation >= elevation) & (is_roughly_biter_area{ x = x, y = y } != 1), influence * min(max_elevation - elevation, 1), -inf))'
+NF['water_base'].expression = 'if((max_elevation >= elevation) & (is_roughly_biter_area{ x = x, y = y } != 1), influence * min(max_elevation - elevation, 1), -inf)'
 
 --- Enemies
 NE['enemy_base_probability'].expression = 'is_roughly_biter_area{ x = x, y = y } * (decorative_mix_noise{seed = map_seed_small, input_scale = 1/7} - 0.3)'
@@ -73,3 +73,22 @@ data.raw.tile['refined-concrete'].autoplace = {
     probability_expression = 'starting_concrete',
     tile_restriction = { 'water' }
 }
+
+-- Moat
+local moat = table.deepcopy(data.raw.tile.deepwater)
+
+moat.name = 'moat'
+moat.collision_mask = {
+    layers = {
+        doodad = true,
+        item = true,
+        player = true,
+        rail = true,
+        resource = true,
+        water_tile = true,
+    }
+}
+moat.autoplace = { probability_expression = 'moat * inf' }
+moat.default_cover_tile = nil
+
+data:extend({ moat })

@@ -1,5 +1,6 @@
 require '__planetary-wars__.utils.lib.lib'
 
+require 'prototypes.emojis'
 require 'prototypes.events'
 require 'prototypes.entity'
 require 'prototypes.friendly-colors'
