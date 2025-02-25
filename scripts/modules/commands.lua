@@ -1,4 +1,4 @@
-local Actions = require 'scripts.modules.command_actions'
+local Actions = require 'scripts.modules.command-actions'
 
 for _, command in pairs({
     {

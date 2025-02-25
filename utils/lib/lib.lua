@@ -4,6 +4,7 @@
 _G.bb = {}
 _DEBUG = true
 
+---@param path string
 local function require_lib(path)
     for k, v in pairs(require(path)) do
         if bb[k] ~= nil then
@@ -13,15 +14,16 @@ local function require_lib(path)
     end
 end
 
-bb.print = function(any)
+---@param obj any
+bb.print = function(obj)
     if not _DEBUG then
         return
     end
 
-    if type(any) == 'string' or type(any) == 'number' or type(any) == 'boolean' then
-        log(any)
+    if type(obj) == 'string' or type(obj) == 'number' or type(obj) == 'boolean' then
+        log(obj)
     else
-        log(serpent.block(any))
+        log(serpent.block(obj))
     end
 end
 

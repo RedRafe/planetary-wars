@@ -106,25 +106,25 @@ local scales = {
 }
 
 local parents = {
-    'medium',
-    'big',
-    'behemoth',
-    'small',
-    'medium',
-    'big',
-    'behemoth',
-    'small',
-    'medium',
-    'big',
-    'behemoth',
-    'small',
-    'medium',
-    'big',
-    'behemoth',
-    'small',
-    'medium',
-    'big',
-    'behemoth',
+    'medium',   -- Overlord
+    'big',      -- Adept
+    'behemoth', -- Champion
+    'small',    -- Warlord
+    'medium',   -- Conqueror
+    'big',      -- Elder
+    'behemoth', -- Arch
+    'small',    -- Sovereign
+    'medium',   -- Tyrant
+    'big',      -- Ascendant
+    'behemoth', -- Primordial
+    'small',    -- Titan
+    'medium',   -- Colossus
+    'big',      -- Mythic
+    'behemoth', -- Legendary
+    'small',    -- Epic
+    'medium',   -- Abyssal
+    'big',      -- Eldritch
+    'behemoth', -- Leviathan
 }
 
 local biters = {
@@ -171,25 +171,25 @@ local biters = {
         { physical = 50, explosion = 50 },  -- Leviathan
     },
     healing_per_tick = {
-        0.2,       -- Overlord
-        0.25,      -- Adept
-        0.3,       -- Champion
-        0.4,       -- Warlord
-        0.5,       -- Conqueror
-        0.6,       -- Elder
-        0.7,       -- Arch
-        0.8,       -- Sovereign
-        0.9,       -- Tyrant
-        1.0,       -- Ascendant
-        1.1,       -- Primordial
-        1.2,       -- Titan
-        1.3,       -- Colossus
-        1.4,       -- Mythic
-        1.5,       -- Legendary
-        1.6,       -- Epic
-        1.7,       -- Abyssal
-        1.8,       -- Eldritch
-        1.9,       -- Leviathan
+        0.20,   -- Overlord
+        0.25,   -- Adept
+        0.30,   -- Champion
+        0.40,   -- Warlord
+        0.50,   -- Conqueror
+        0.60,   -- Elder
+        0.70,   -- Arch
+        0.80,   -- Sovereign
+        0.90,   -- Tyrant
+        1.00,   -- Ascendant
+        1.10,   -- Primordial
+        1.20,   -- Titan
+        1.30,   -- Colossus
+        1.40,   -- Mythic
+        1.50,   -- Legendary
+        1.60,   -- Epic
+        1.70,   -- Abyssal
+        1.80,   -- Eldritch
+        1.90,   -- Leviathan
     },
     collision_box = {
         {{-0.5, -0.5}, {0.5, 0.5}},  -- Overlord
@@ -489,21 +489,21 @@ local spitters = {
         0.55,   -- Leviathan
     },
     absorptions_to_join_attack = {
-        400,    -- Overlord
-        600,    -- Adept
-        900,    -- Champion
-        1200,   -- Warlord
-        1700,   -- Conqueror
-        2500,   -- Elder
-        3500,   -- Arch
-        5000,   -- Sovereign
-        7500,   -- Tyrant
-        10000,  -- Ascendant
-        15000,  -- Primordial
-        20000,  -- Titan
-        30000,  -- Colossus
-        45000,  -- Mythic
-        67500,  -- Legendary
+        400,     -- Overlord
+        600,     -- Adept
+        900,     -- Champion
+        1200,    -- Warlord
+        1700,    -- Conqueror
+        2500,    -- Elder
+        3500,    -- Arch
+        5000,    -- Sovereign
+        7500,    -- Tyrant
+        10000,   -- Ascendant
+        15000,   -- Primordial
+        20000,   -- Titan
+        30000,   -- Colossus
+        45000,   -- Mythic
+        67500,   -- Legendary
         101250,  -- Epic
         151875,  -- Abyssal
         227812,  -- Eldritch

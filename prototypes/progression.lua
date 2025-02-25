@@ -6,6 +6,13 @@ local function hide_prototype(p_type, p_name)
     end
 end
 
+hide_prototype('recipe', 'artillery-shell')
+hide_prototype('recipe', 'artillery-turret')
+hide_prototype('recipe', 'artillery-wagon')
+hide_prototype('recipe', 'atomic-bomb')
+hide_prototype('recipe', 'cliff-explosives')
+hide_prototype('recipe', 'land-mine')
+
 hide_prototype('technology', 'artillery-shell-range-1')
 hide_prototype('technology', 'artillery-shell-speed-1')
 hide_prototype('technology', 'artillery')
@@ -14,13 +21,6 @@ hide_prototype('technology', 'cliff-explosives')
 hide_prototype('technology', 'gate')
 hide_prototype('technology', 'kovarex-enrichment-process')
 hide_prototype('technology', 'land-mine')
-
-hide_prototype('recipe', 'artillery-shell')
-hide_prototype('recipe', 'artillery-turret')
-hide_prototype('recipe', 'artillery-wagon')
-hide_prototype('recipe', 'atomic-bomb')
-hide_prototype('recipe', 'cliff-explosives')
-hide_prototype('recipe', 'land-mine')
 
 local technologies = data.raw.technology
 

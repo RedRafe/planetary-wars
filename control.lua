@@ -9,15 +9,15 @@ bb.on_init(function()
 end)
 
 --- Modules
-require 'scripts.modules.auto_tag'
+require 'scripts.modules.auto-tag'
 require 'scripts.modules.blueprints'
 require 'scripts.modules.chat'
 require 'scripts.modules.commands'
-require 'scripts.modules.corpse_tag'
+require 'scripts.modules.corpse-tag'
 require 'scripts.modules.difficulty'
 require 'scripts.modules.enemy'
 require 'scripts.modules.feeding'
-require 'scripts.modules.floaty_chat'
+require 'scripts.modules.floaty-chat'
 require 'scripts.modules.force'
 require 'scripts.modules.freeplay'
 require 'scripts.modules.game'
