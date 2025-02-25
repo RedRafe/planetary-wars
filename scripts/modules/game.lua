@@ -72,6 +72,11 @@ Game.ticks = function()
     end
 end
 
+---@return boolean
+Game.is_playing = function()
+    return Game.state() == Config.game_state.playing
+end
+
 -- == EVENTS ==================================================================
 
 bb.on_init(function()

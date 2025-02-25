@@ -34,6 +34,12 @@ Force.south = function()
     return forces.south
 end
 
+---@param force string|LuaForce
+Force.get = function(force)
+    local side = (type(force) == 'string') and force or force.name
+    return forces[side]
+end
+
 ---@param entity LuaEntity
 ---@return boolean success|error
 Force.register_critical_entity = function(entity)

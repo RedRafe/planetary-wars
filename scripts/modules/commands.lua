@@ -2,7 +2,7 @@ local Actions = require 'scripts.modules.command_actions'
 
 for _, command in pairs({
     {
-        name = 'instant-map-reset',
+        name = 'on-map-reset',
         help = 'Instantly rerolls a new map',
         action = Actions.instant_map_reset
     },

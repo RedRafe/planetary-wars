@@ -23,11 +23,20 @@ Public.for_players = function(callback, ...)
     end
 end
 
+---@param force ForceID, string|number|LuaForce
+---@return LuaForce
+Public.get_force = function(force)
+    if type(force) == 'userdata' then
+        return force
+    end
+    return game.forces[force]
+end
+
 --- Create Flying text for the player, or for all players on that surface if no player specified
 --- see docs @ https://lua-api.factorio.com/latest/classes/LuaPlayer.html#create_local_flying_text
 ---@param message table, { text: string, position: MapPosition, color: Color }
 ---@param target? LuaPlayer|LuaForce|LuaGameScript, if not provided, all players will be used
-function Public.create_local_flying_text(message, target)
+Public.create_local_flying_text = function(message, target)
     local players
     if target then
         players = (target.object_name == 'LuaPlayer') and { target } or target.connected_players

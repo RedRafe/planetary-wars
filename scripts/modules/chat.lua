@@ -1,14 +1,12 @@
+local Config = require 'scripts.config'
+
 local Chat = {}
 
 local CHAT_MAX_LENGTH = 100
 local insert = table.insert
 local remove = table.remove
 local format = string.format
-local force_names_map = {
-    player = 'Spectator',
-    north = 'North',
-    south = 'South'
-}
+local force_names_map = Config.force_names_map
 
 ---@usage
 ---@field announcement: provides a global read-only chat for players, used by game to display event info

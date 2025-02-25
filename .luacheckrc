@@ -169,6 +169,7 @@ stds[LIB_CONTROL] = {
                         'on_match_finished',
                         'on_match_picking_phase',
                         'on_match_preparation_phase',
+                        'on_player_fed',
                     }
                 }
             }
