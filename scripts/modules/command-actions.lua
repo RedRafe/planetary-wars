@@ -10,4 +10,10 @@ Actions.transition = function()
     Game.transition()
 end
 
+Actions.hax = function()
+    for _, recipe in pairs(game.player.force.recipes) do
+        recipe.enabled = true
+    end
+end
+
 return Actions

@@ -46,13 +46,13 @@ end
 
 ---@param name string
 Feeding.get_default_item = function(name)
-    return Config.item_values[name]
+    return Config.item_value[name]
 end
 
 ---@param name string
 Feeding.set_default_item = function(name)
-    if Config.item_values[name] then
-        items[name] = Config.item_values[name]
+    if Config.item_value[name] then
+        items[name] = Config.item_value[name]
     end
 end
 
@@ -60,7 +60,7 @@ Feeding.reset_all_default_items = function()
     for i in pairs(items) do
         items[i] = nil
     end
-    for k, v in pairs(Config.item_values) do
+    for k, v in pairs(Config.item_value) do
         items[k] = v
     end
 end

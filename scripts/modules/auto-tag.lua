@@ -1,16 +1,15 @@
 local Buckets = require 'utils.containers.buckets'
-local Config = require 'scripts.config'
-local Tag = require 'scripts.modules.tags'
+local Tag = require 'scripts.modules.tag'
 
 local math_abs = math.abs
 local add_player_tag   = Tag.add_player_tag
 local get_player_tag   = Tag.get_player_tag
-local clear_player_tag = Tag.clear_player_tag
+local remove_player_tag = Tag.remove_player_tag
 
 local NTH_TICK = 36
 local OUTPOST_DISTANCE = 600
-local EAST = Config.tags.East
-local WEST = Config.tags.West
+local EAST = 'east'
+local WEST = 'west'
 
 local online_players = Buckets.new(math.ceil(60 * 60 / NTH_TICK))
 bb.subscribe(online_players, function(tbl) online_players = tbl end)
@@ -28,7 +27,7 @@ local function update_player_tag(player_index, player)
     else
         local tag_name = get_player_tag(player_index)
         if tag_name == EAST or tag_name == WEST then
-            clear_player_tag(player_index)
+            remove_player_tag(player_index)
         end
     end
 end

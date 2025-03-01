@@ -12,7 +12,7 @@ return {
         hard   = { value = 2.00, color = { 255, 084, 000 } },
         fnf    = { value = 5.00, color = { 255, 000, 000 } },
     },
-    force_names_map = {
+    force_name_map = {
         player = 'Spectator',
         north = 'North',
         south = 'South'
@@ -25,7 +25,7 @@ return {
         finished     = 4,
         resetting    = 5,
     },
-    item_values = {
+    item_value = {
         ['automation-science-pack'] = { value = 0.0009, color = { 255, 050, 050 } },
         ['logistic-science-pack']   = { value = 0.0023, color = { 050, 255, 050 } },
         ['military-science-pack']   = { value = 0.0095, color = { 105, 105, 105 } },
@@ -45,22 +45,29 @@ return {
         north  = { x = 0, y = -90 },
         south  = { x = 0, y =  90 },
     },
-    tags = {
-        Referee    = { rank = 5, default = true, name = 'Referee',    sprite = 'info_no_border' },
-        Captain    = { rank = 4, default = true, name = 'Captain',    sprite = 'virtual-signal/signal-star' },
-        Custom     = { rank = 3, default = true, name = 'Custom',     sprite = 'item/coin' },
-        Laser      = { rank = 2, default = true, name = 'Laser',      sprite = 'item/laser-turret' },
-        Main       = { rank = 2, default = true, name = 'Main',       sprite = 'item/assembling-machine-2' },
-        Nuclear    = { rank = 2, default = true, name = 'Nuclear',    sprite = 'item/nuclear-reactor' },
-        Oil        = { rank = 2, default = true, name = 'Oil',        sprite = 'item/pumpjack' },
-        Power      = { rank = 2, default = true, name = 'Power',      sprite = 'item/steam-engine' },
-        Rocket     = { rank = 2, default = true, name = 'Rocket',     sprite = 'item/rocket-part' },
-        Spam       = { rank = 2, default = true, name = 'Spam',       sprite = 'item/tank-cannon' },
-        Support    = { rank = 2, default = true, name = 'Support',    sprite = 'item/electric-mining-drill' },
-        Threatfarm = { rank = 2, default = true, name = 'Threatfarm', sprite = 'item/grenade' },
-        Wall       = { rank = 2, default = true, name = 'Wall',       sprite = 'item/stone-wall' },
-        East       = { rank = 1, default = true, name = 'East',       sprite = 'virtual-signal/signal-E' },
-        West       = { rank = 1, default = true, name = 'West',       sprite = 'virtual-signal/signal-W' },
+    tag = {
+        referee    = { rank = 5, sprite = 'info_no_border' },
+        captain    = { rank = 4, sprite = 'virtual-signal/signal-star' },
+        custom     = { rank = 3, sprite = 'item/coin' },
+        laser      = { rank = 2, sprite = 'item/laser-turret' },
+        main       = { rank = 2, sprite = 'item/assembling-machine-2' },
+        nuclear    = { rank = 2, sprite = 'item/nuclear-reactor' },
+        oil        = { rank = 2, sprite = 'item/pumpjack' },
+        power      = { rank = 2, sprite = 'item/steam-engine' },
+        rocket     = { rank = 2, sprite = 'item/rocket-part' },
+        spam       = { rank = 2, sprite = 'item/tank-cannon' },
+        support    = { rank = 2, sprite = 'item/electric-mining-drill' },
+        threatfarm = { rank = 2, sprite = 'item/grenade' },
+        wall       = { rank = 2, sprite = 'item/stone-wall' },
+        east       = { rank = 1, sprite = 'virtual-signal/signal-e' },
+        west       = { rank = 1, sprite = 'virtual-signal/signal-w' },
+    },
+    tag_rank = {
+        admin   = 5,
+        role    = 4,
+        custom  = 3,
+        default = 2,
+        auto    = 1,
     },
     production = {
         'transport-belt',

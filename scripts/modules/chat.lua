@@ -6,7 +6,7 @@ local CHAT_MAX_LENGTH = 100
 local insert = table.insert
 local remove = table.remove
 local format = string.format
-local force_names_map = Config.force_names_map
+local force_name_map = Config.force_name_map
 
 ---@usage
 ---@field announcement: provides a global read-only chat for players, used by game to display event info
@@ -74,7 +74,7 @@ bb.add(defines.events.on_console_chat, function(event)
 
     local player_force = player.force.name
     local player_tag = player.tag or ''
-    local msg = format('%s %s (%s): %s', player.name, player_tag, force_names_map[player_force], message)
+    local msg = format('%s %s (%s): %s', player.name, player_tag, force_name_map[player_force], message)
 
     if player_force == 'player' then
         if true then -- TODO: if not tournament mode

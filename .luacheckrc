@@ -21,7 +21,7 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 --
--- Current Factorio Version 2.0.34, luacheck version 1.1.1
+-- Current Factorio Version 2.0.35, luacheck version 1.1.1
 
 -- == CONFIG ==================================================================
 

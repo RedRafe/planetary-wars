@@ -11,6 +11,11 @@ for _, command in pairs({
         help = 'Moves game state to nest stage',
         action = Actions.transition
     },
+    {
+        name = 'hax',
+        help = 'Unlock all recipes',
+        action = Actions.hax
+    }
 }) do
     commands.add_command( command.name, command.help, command.action)
 end
